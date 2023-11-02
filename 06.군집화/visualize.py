@@ -15,15 +15,15 @@ def visualize_silhouette(cluster_lists, X_features):
     for ind, n_cluster in enumerate(cluster_lists):
         
         # KMeans 클러스터링 수행하고, 실루엣 스코어와 개별 데이터의 실루엣 값 계산. 
-        clusterer = KMeans(n_clusters = n_cluster, max_iter=500, random_state=0)
+        clusterer = KMeans(n_clusters = n_cluster, random_state=2023, n_init='auto')
         cluster_labels = clusterer.fit_predict(X_features)
         
         sil_avg = silhouette_score(X_features, cluster_labels)
         sil_values = silhouette_samples(X_features, cluster_labels)
         
         y_lower = 10
-        axs[ind].set_title('Number of Cluster : '+ str(n_cluster)+'\n' \
-                           'Silhouette Score :' + str(round(sil_avg,3)) )
+        axs[ind].set_title('Number of Cluster: '+ str(n_cluster)+'\n' \
+                           'Silhouette Score: ' + str(round(sil_avg,4)) )
         axs[ind].set_xlabel("The silhouette coefficient values")
         axs[ind].set_ylabel("Cluster label")
         axs[ind].set_xlim([-0.1, 1])
